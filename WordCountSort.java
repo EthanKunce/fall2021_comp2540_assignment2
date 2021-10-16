@@ -10,7 +10,10 @@ import java.util.Scanner;
 import java.util.Map.Entry;
 import java.util.AbstractMap;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.StringBuilder;
@@ -142,22 +145,96 @@ public class WordCountSort {
 	// 	return tokens;
 	// }
 
+	public static Integer countFAST(String fileName) throws Exception {
+
+		String [] tokens = readText(fileName);
+		mergeSort(tokens);
+
+		HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
+		// boolean oneWord = false;
+
+		for(int i = 0; i < tokens.length; i++){
+			if(wordCountMap.isEmpty()){
+				wordCountMap.put(tokens[i], 1);
+			}
+			else if(wordCountMap.containsKey(tokens[i])){
+				wordCountMap.put(tokens[i], wordCountMap.get(tokens[i]) + 1);
+			}
+		}
+
+		
+		
+
+
+
+
+
+
+
+
+
+		// int CAPACITY = 1000000;
+
+		// String[] words = new String[CAPACITY];
+
+		// int[] counts = new int[CAPACITY];
+		// int j = 0, k = 0;
+		// int len = tokens.length;
+		// while (j < len - 1) {
+		// 	int duplicates = 1;
+		// 	while (j < len - 2 & tokens[j].equals(tokens[j + 1])) {
+		// 		j++;
+		// 		duplicates++;
+		// 	}
+
+		// 	words[k] = tokens[j];
+		// 	counts[k] = duplicates;
+		// 	j++;
+		// 	k++;
+		// }
+
+		// String[] copyOfWords=new String[k];
+		// Integer[] copyOfCounts=new Integer[k];
+		
+		// for (int i=0; i<k; i++) {
+		// 	copyOfCounts[i]=counts[i];
+		// }
+			
+		// Arrays.sort(copyOfCounts);
+		
+		return copyOfCounts[k-200];
+
+		
+	}
+
+	public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(HashMap<K, V> map) {
+        List<Entry<K, V>> list = new List<>(map.entrySet());
+        list.sort(Entry.comparingByValue());
+
+        HashMap<K, V> result = new HashMap<>();
+        for (Entry<K, V> entry : list) {
+            result.put(entry.getKey(), entry.getValue());
+        }
+
+        return result;
+    }
+
 	static String [] readText(String PATH) throws Exception {
-			BufferedReader br = new BufferedReader (new FileReader(PATH) ) ;
-			
-			StringBuilder test = new StringBuilder();
-			
-			String text =" ";
-			String line =" ";
-			while ((line = br.readLine()) != null)
-			{	
-				test.append(" " + line.trim());
-			}	
-			// test.trimToSize();
-			String tokens[] = test.toString().trim().split("[^a-zA-Z]+");
-			// .split("[^a-zA-Z]+") ;
-			
-			return tokens;
+		BufferedReader br = new BufferedReader (new FileReader(PATH) ) ;
+		
+		StringBuilder test = new StringBuilder();
+		
+		String text =" ";
+		String line =" ";
+		while ((line = br.readLine()) != null)
+		{	
+			test.append(" " + line.trim());
+		}	
+		// test.trimToSize();
+		String tokens[] = test.toString().trim().split("[^a-zA-Z]+");
+		// .split("[^a-zA-Z]+") ;
+		
+		return tokens;
 	}
 
 	public static void main(String[] args) throws Exception {
