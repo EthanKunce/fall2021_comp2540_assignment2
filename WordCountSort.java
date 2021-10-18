@@ -5,13 +5,10 @@
  * The purpose is to understand sorting algorithms and their performances. 
  * It prints out the frequency of the 200-th most frequent word.
  */
-import java.io.File;
-import java.util.Scanner;
+
 import java.util.Map.Entry;
-import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.io.BufferedReader;
@@ -148,59 +145,69 @@ public class WordCountSort {
 	public static Integer countFAST(String fileName) throws Exception {
 
 		String [] tokens = readText(fileName);
-		mergeSort(tokens);
+		Arrays.sort(tokens);
+		// mergeSort(tokens);
 
-		HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
+		// HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
 		// boolean oneWord = false;
 
-		for(int i = 0; i < tokens.length; i++){
-			if(wordCountMap.isEmpty()){
-				wordCountMap.put(tokens[i], 1);
+		// for(int i = 0; i < tokens.length; i++){
+		// 	if(wordCountMap.isEmpty()){
+		// 		wordCountMap.put(tokens[i], 1);
+		// 	}
+		// 	else if(wordCountMap.containsKey(tokens[i])){
+		// 		wordCountMap.put(tokens[i], wordCountMap.get(tokens[i]) + 1);
+		// 	}
+		// 	else{
+		// 		wordCountMap.put(tokens[i], 1);
+		// 	}
+		// }
+
+		// HashMap<String, Integer> sortedWordCountMap =  sortByValue(wordCountMap);
+
+		
+		
+
+
+
+
+
+
+
+
+
+		int CAPACITY = 1000000;
+
+		String[] words = new String[CAPACITY];
+
+		int[] counts = new int[CAPACITY];
+		int j = 0, k = 0;
+		int len = tokens.length;
+		while (j < len - 1) {
+			int duplicates = 1;
+			while (j < len - 2 & tokens[j].equals(tokens[j + 1])) {
+				j++;
+				duplicates++;
 			}
-			else if(wordCountMap.containsKey(tokens[i])){
-				wordCountMap.put(tokens[i], wordCountMap.get(tokens[i]) + 1);
-			}
+
+			words[k] = tokens[j];
+			counts[k] = duplicates;
+			j++;
+			k++;
 		}
 
+		String[] copyOfWords=new String[k];
+		Integer[] copyOfCounts=new Integer[k];
 		
-		
-
-
-
-
-
-
-
-
-
-		// int CAPACITY = 1000000;
-
-		// String[] words = new String[CAPACITY];
-
-		// int[] counts = new int[CAPACITY];
-		// int j = 0, k = 0;
-		// int len = tokens.length;
-		// while (j < len - 1) {
-		// 	int duplicates = 1;
-		// 	while (j < len - 2 & tokens[j].equals(tokens[j + 1])) {
-		// 		j++;
-		// 		duplicates++;
-		// 	}
-
-		// 	words[k] = tokens[j];
-		// 	counts[k] = duplicates;
-		// 	j++;
-		// 	k++;
-		// }
-
-		// String[] copyOfWords=new String[k];
-		// Integer[] copyOfCounts=new Integer[k];
-		
-		// for (int i=0; i<k; i++) {
-		// 	copyOfCounts[i]=counts[i];
-		// }
+		for (int i=0; i<k; i++) {
+			copyOfCounts[i]=counts[i];
+		}
 			
-		// Arrays.sort(copyOfCounts);
+		Arrays.sort(copyOfCounts);
+
+		// for(int i = 0; i < sortedWordCountMap.size(); i++){
+
+		// }
 		
 		return copyOfCounts[k-200];
 
@@ -208,7 +215,7 @@ public class WordCountSort {
 	}
 
 	public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(HashMap<K, V> map) {
-        List<Entry<K, V>> list = new List<>(map.entrySet());
+        List<Entry<K,V>> list = new ArrayList<>(map.entrySet());
         list.sort(Entry.comparingByValue());
 
         HashMap<K, V> result = new HashMap<>();
@@ -243,6 +250,9 @@ public class WordCountSort {
 		String[] DATASETS = { "200", "400","800","1600","3200","6400", "10000","20000","40000", "80000","160000", "320000", "640000", "1280000", "25600000"};//, "10k","100k"}; //, "5k", "10k", "100k", "1m", "" };
 		
 		String[] tokens;
+
+		countFAST("dblp10000.txt");
+
 		// run the experiments on different data sets
 		for (int j = 1; j < 11; j++) {
 			// run the experiments using different methods
