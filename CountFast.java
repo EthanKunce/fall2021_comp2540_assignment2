@@ -1,8 +1,13 @@
 import java.util.Map.Entry;
+
+// import org.graalvm.compiler.word.Word;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.lang.StringBuilder;
@@ -41,16 +46,16 @@ public class CountFast{
 
 
 
-	public static Integer countFASTER(String fileName) throws Exception {
+	public static Integer countFAST(String fileName) throws Exception {
 
 		String [] tokens = readText(fileName);
-		Arrays.sort(tokens);
-
+		// Arrays.sort(tokens);
+		// int maxValue = 0;
 
 		HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
+		int i = 0;
+		while(i < tokens.length)	{
 
-
-		for(int i = 0; i < tokens.length; i++){
 			if(wordCountMap.isEmpty()){
 				wordCountMap.put(tokens[i], 1);
 			}
@@ -60,14 +65,14 @@ public class CountFast{
 			else{
 				wordCountMap.put(tokens[i], 1);
 			}
+			i++;
 		}
 
-		HashMap<String, Integer> sortedWordCountMap =  sortByValue(wordCountMap);
+		Integer[] valueSet = wordCountMap.values().toArray(new Integer[0]);
 
-		
-		
-		
-		return 1;
+		Arrays.sort(valueSet);
+
+		return valueSet[valueSet.length - 200];
 	}
 
 	public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(HashMap<K, V> map) {
@@ -108,10 +113,10 @@ public class CountFast{
         long startTime = System.currentTimeMillis();
 
 
-        countFASTER("dblp1280000.txt");
+        int i = countFAST("dblp2560000.txt");
 
         long endTime = System.currentTimeMillis();
         String time = String.format("%12d", endTime - startTime);
-        System.out.println(" method\t time=" + time + ".\t 200th freq is ");
+        System.out.println(" method\t time=" + time + ".\t 200th freq is " + i);
     }
 }

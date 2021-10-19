@@ -116,65 +116,11 @@ public class WordCountSort {
 		return copyOfCounts[k-200];
 	}
 
-	// static String[] readText(String PATH) throws Exception {
-	// 	Scanner doc = new Scanner(new File(PATH)).useDelimiter("[^a-zA-Z]+");
-	// 	// tokenize text. any characters other than English letters(a-z and A-Z) are delimiters.
-		
-		
-
-	// 	int length = 0;
-	// 	while (doc.hasNext()) {
-	// 		doc.next();
-	// 		length++;
-	// 	}
-
-	// 	String[] tokens = new String[length];
-	// 	Scanner s = new Scanner(new File(PATH)).useDelimiter("[^a-zA-Z]+");
-	// 	length = 0;
-		
-	// 	StringBuilder test = new StringBuilder(length);
-		
-	// 	while (s.hasNext()) {
-	// 		tokens[length] = s.next().toLowerCase();
-	// 		length++;
-	// 	}
-	// 	doc.close();
-	// 	return tokens;
-	// }
-
 	public static Integer countFAST(String fileName) throws Exception {
 
 		String [] tokens = readText(fileName);
 		Arrays.sort(tokens);
 		// mergeSort(tokens);
-
-		// HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
-		// boolean oneWord = false;
-
-		// for(int i = 0; i < tokens.length; i++){
-		// 	if(wordCountMap.isEmpty()){
-		// 		wordCountMap.put(tokens[i], 1);
-		// 	}
-		// 	else if(wordCountMap.containsKey(tokens[i])){
-		// 		wordCountMap.put(tokens[i], wordCountMap.get(tokens[i]) + 1);
-		// 	}
-		// 	else{
-		// 		wordCountMap.put(tokens[i], 1);
-		// 	}
-		// }
-
-		// HashMap<String, Integer> sortedWordCountMap =  sortByValue(wordCountMap);
-
-		
-		
-
-
-
-
-
-
-
-
 
 		int CAPACITY = 1000000;
 
@@ -210,21 +156,8 @@ public class WordCountSort {
 		// }
 		
 		return copyOfCounts[k-200];
-
-		
 	}
 
-	public static <K, V extends Comparable<? super V>> HashMap<K, V> sortByValue(HashMap<K, V> map) {
-        List<Entry<K,V>> list = new ArrayList<>(map.entrySet());
-        list.sort(Entry.comparingByValue());
-
-        HashMap<K, V> result = new HashMap<>();
-        for (Entry<K, V> entry : list) {
-            result.put(entry.getKey(), entry.getValue());
-        }
-
-        return result;
-    }
 
 	static String [] readText(String PATH) throws Exception {
 		BufferedReader br = new BufferedReader (new FileReader(PATH) ) ;
@@ -254,7 +187,7 @@ public class WordCountSort {
 		countFAST("dblp10000.txt");
 
 		// run the experiments on different data sets
-		for (int j = 1; j < 11; j++) {
+		for (int j = 13 ; j < 14; j++) {
 			// run the experiments using different methods
 			System.out.println("Data is " + DATASETS[j]);
 			for (int i = 0; i < 3; i++){
